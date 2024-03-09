@@ -55,19 +55,24 @@ public:
     void PopupMessage(int type,int index){
         switch (type)
         {
-        case 0:{
-            string mes = "Added a new virtual display, index: ";
-            string pop = mes + to_string(index);
-            auto message = QMessageBox::information(this, "tooltip", QString::fromStdString(pop));
-            break;
+            case 0:{
+                string mes = "Added a new virtual display, index: ";
+                string pop = mes + to_string(index);
+                auto message = QMessageBox::information(this, "tooltip", QString::fromStdString(pop));
+                break;
+            }
+            case 1:{
+                string mes = "Removed the last virtual display, index: ";
+                string pop = mes + to_string(index);
+                auto message = QMessageBox::information(this, "tooltip", QString::fromStdString(pop));
+                break;
+            }
         }
-        case 1:{
-            string mes = "Removed the last virtual display, index: ";
-            string pop = mes + to_string(index);
-            auto message = QMessageBox::information(this, "tooltip", QString::fromStdString(pop));
-            break;
-        }
-        }
+    }
+private:
+    void UIInfoUpdate(){
+        QLabel *Counter = this->findChild<QLabel *>(QString::fromStdString("Counter"));
+        Counter->setNum((int)displays.size());
     }
 signals:
     void StatusError();
@@ -89,6 +94,7 @@ public slots:
         else{
             auto message = QMessageBox::information(this, "tooltip", QString::fromUtf8("Limit exceeded, could not add more virtual displays."));
         }
+        UIInfoUpdate();
     }
     void RemoveScreen(){
         if(displays.size() > 0){
@@ -100,6 +106,7 @@ public slots:
         else{
             auto message = QMessageBox::information(this, "tooltip", QString::fromUtf8("No added virtual displays."));
         }
+        UIInfoUpdate();
     }
 };
 

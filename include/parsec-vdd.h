@@ -42,6 +42,7 @@ namespace parsec_vdd
 {
 #endif
 
+#define ZeroMemory fRtlZeroMemory
 // Device helper.
 //////////////////////////////////////////////////
 
